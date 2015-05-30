@@ -380,6 +380,147 @@ namespace Microsoft.AspNet.SignalR.Client
         }
 
         /// <summary>
+        /// Registers for an event with the specified name and callback
+        /// </summary>
+        /// <param name="proxy">The <see cref="IHubProxy"/>.</param>
+        /// <param name="eventName">The name of the event.</param>
+        /// <param name="onData">The callback</param>
+        /// <returns>An <see cref="IDisposable"/> that represents this subscription.</returns>
+        public static IDisposable On<T1, T2, T3, T4, T5, T6, T7, T8>(this IHubProxy proxy, string eventName, Action<T1, T2, T3, T4, T5, T6, T7, T8> onData)
+        {
+            if (proxy == null)
+            {
+                throw new ArgumentNullException("proxy");
+            }
+
+            if (String.IsNullOrEmpty(eventName))
+            {
+                throw new ArgumentNullException("eventName");
+            }
+
+            if (onData == null)
+            {
+                throw new ArgumentNullException("onData");
+            }
+
+            Subscription subscription = proxy.Subscribe(eventName);
+
+            Action<IList<JToken>> handler = args =>
+            {
+                ExecuteCallback(eventName, args.Count, 8, () =>
+                {
+                    onData(Convert<T1>(args[0], proxy.JsonSerializer),
+                           Convert<T2>(args[1], proxy.JsonSerializer),
+                           Convert<T3>(args[2], proxy.JsonSerializer),
+                           Convert<T4>(args[3], proxy.JsonSerializer),
+                           Convert<T5>(args[4], proxy.JsonSerializer),
+                           Convert<T6>(args[5], proxy.JsonSerializer),
+                           Convert<T7>(args[6], proxy.JsonSerializer),
+                           Convert<T8>(args[7], proxy.JsonSerializer));
+                });
+            };
+
+            subscription.Received += handler;
+
+            return new DisposableAction(() => subscription.Received -= handler);
+        }
+
+        /// <summary>
+        /// Registers for an event with the specified name and callback
+        /// </summary>
+        /// <param name="proxy">The <see cref="IHubProxy"/>.</param>
+        /// <param name="eventName">The name of the event.</param>
+        /// <param name="onData">The callback</param>
+        /// <returns>An <see cref="IDisposable"/> that represents this subscription.</returns>
+        public static IDisposable On<T1, T2, T3, T4, T5, T6, T7, T8, T9>(this IHubProxy proxy, string eventName, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> onData)
+        {
+            if (proxy == null)
+            {
+                throw new ArgumentNullException("proxy");
+            }
+
+            if (String.IsNullOrEmpty(eventName))
+            {
+                throw new ArgumentNullException("eventName");
+            }
+
+            if (onData == null)
+            {
+                throw new ArgumentNullException("onData");
+            }
+
+            Subscription subscription = proxy.Subscribe(eventName);
+
+            Action<IList<JToken>> handler = args =>
+            {
+                ExecuteCallback(eventName, args.Count, 9, () =>
+                {
+                    onData(Convert<T1>(args[0], proxy.JsonSerializer),
+                           Convert<T2>(args[1], proxy.JsonSerializer),
+                           Convert<T3>(args[2], proxy.JsonSerializer),
+                           Convert<T4>(args[3], proxy.JsonSerializer),
+                           Convert<T5>(args[4], proxy.JsonSerializer),
+                           Convert<T6>(args[5], proxy.JsonSerializer),
+                           Convert<T7>(args[6], proxy.JsonSerializer),
+                           Convert<T8>(args[7], proxy.JsonSerializer),
+                           Convert<T9>(args[8], proxy.JsonSerializer));
+                });
+            };
+
+            subscription.Received += handler;
+
+            return new DisposableAction(() => subscription.Received -= handler);
+        }
+
+        /// <summary>
+        /// Registers for an event with the specified name and callback
+        /// </summary>
+        /// <param name="proxy">The <see cref="IHubProxy"/>.</param>
+        /// <param name="eventName">The name of the event.</param>
+        /// <param name="onData">The callback</param>
+        /// <returns>An <see cref="IDisposable"/> that represents this subscription.</returns>
+        public static IDisposable On<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(this IHubProxy proxy, string eventName, Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> onData)
+        {
+            if (proxy == null)
+            {
+                throw new ArgumentNullException("proxy");
+            }
+
+            if (String.IsNullOrEmpty(eventName))
+            {
+                throw new ArgumentNullException("eventName");
+            }
+
+            if (onData == null)
+            {
+                throw new ArgumentNullException("onData");
+            }
+
+            Subscription subscription = proxy.Subscribe(eventName);
+
+            Action<IList<JToken>> handler = args =>
+            {
+                ExecuteCallback(eventName, args.Count, 10, () =>
+                {
+                    onData(Convert<T1>(args[0], proxy.JsonSerializer),
+                           Convert<T2>(args[1], proxy.JsonSerializer),
+                           Convert<T3>(args[2], proxy.JsonSerializer),
+                           Convert<T4>(args[3], proxy.JsonSerializer),
+                           Convert<T5>(args[4], proxy.JsonSerializer),
+                           Convert<T6>(args[5], proxy.JsonSerializer),
+                           Convert<T7>(args[6], proxy.JsonSerializer),
+                           Convert<T8>(args[7], proxy.JsonSerializer),
+                           Convert<T9>(args[8], proxy.JsonSerializer),
+                           Convert<T10>(args[9], proxy.JsonSerializer));
+                });
+            };
+
+            subscription.Received += handler;
+
+            return new DisposableAction(() => subscription.Received -= handler);
+        }
+
+        /// <summary>
         /// Registers a <see cref="IHubProxy"/> event has an <see cref="T:IObservable{T}"/>.
         /// </summary>
         /// <param name="proxy">The <see cref="IHubProxy"/></param>
